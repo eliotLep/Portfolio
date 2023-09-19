@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eliot Lepoittevin Portfolio</title>
+  </head>
+  <body>
+
+    <canvas id="bg"></canvas>   
+
+    <main id="scrollable">
+
+      <div class="me">
+        <h1 class="title">Eliot Lepoittevin</h1>
+        <p>🚀 Gameplay Programmer</p>
+      </div>
+
+      <div class="about-me">
+        <h3>Welcome to my portfolio!</h3>
+        <p>I have a master degree in AI and data mining but i have been a self-taught game programmer for many years.</p>
+        <p><i>Please scroll down to look at some of my games!</i></p>
+      </div>
+
+
+      <div class="projects" id="list"></div>
+
+
+    </main>
+
+
+    <div class="contact-bar">
+      <div>☎️ 06 52 80 45 83</div>
+      <div>📧 eliot.lepoittevin@gmail.com</div>
+    </div>
+
+    
+    <script type="module" src="/main.js"></script>
+
+
+  </body>
+</html>
+
+
+
+
+<template id="project-template">
+  <div class="project-title title">
+    <p>{name}</p>
+  </div>
+  <div class="project-content">
+    <div class="project-text">
+      <p>{team}</p>
+      <p>{techno}</p>
+      <p>{description}</p>
+    </div>
+    <iframe class="project-video" src="{videoLink}" frameBorder="0" allowfullscreen></iframe>
+  </div>
+</template>
