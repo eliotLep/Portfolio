@@ -32,6 +32,10 @@ description: "Lorem Ipsum is simply dummy text of the printing and typesetting i
 /************************************************************************** */
 
 
+function GetRandom(){
+  return ((Math.random()-0.5)*2);
+}
+
 
 const PROJECTS_HTML = PROJECTS.map( project => {
   let item = document.querySelector('#project-template').innerHTML;
@@ -88,7 +92,7 @@ function addStar() {
   star.position.set(x, y, z);
   scene.add(star);
 
-  return {star: star, position: {x: x, y: y, z: z}};
+  return {star: star, position: {x: x, y: y, z: z}, direction: {x: GetRandom(), y: GetRandom(), z: GetRandom()}};
 
 }
 
@@ -200,6 +204,14 @@ moveCamera();
 
 function animate() {
   requestAnimationFrame(animate);
+
+  STARS.forEach((starObj) => {
+    starObj.direction.x += GetRandom() * 0.05;
+    starObj.direction.y += GetRandom() * 0.05;
+
+    starObj.star.position.x += starObj.direction.x * 0.01;
+    starObj.star.position.y += starObj.direction.y * 0.01;
+  });
 
   // controls.update();
 
