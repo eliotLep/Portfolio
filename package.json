@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite --port 8080",
     "build": "vite build",
-    "deploy": "vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "three": "^0.128.0",
