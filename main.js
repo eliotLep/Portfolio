@@ -2,7 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 
 
-const ASSETS = 'assets/';
+const ASSETS = 'images/';
 
 
 const PROJECTS = new Array();
