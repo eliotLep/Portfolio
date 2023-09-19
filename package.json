@@ -1,15 +1,16 @@
 {
-  "name": "three-demo",
+  "name": "eliot-lepoittevin-portfolio",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite --port 8080",
     "build": "vite build",
-    "serve": "vite preview"
+    "deploy": "vite preview"
   },
   "devDependencies": {
     "vite": "^2.3.0"
   },
   "dependencies": {
+    "gh-pages": "^6.0.0",
     "three": "^0.128.0"
   }
 }

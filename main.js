@@ -2,22 +2,25 @@ import './style.css';
 import * as THREE from 'three';
 
 
+const ASSETS = 'assets/';
+
+
 const PROJECTS = new Array();
 
 PROJECTS.push( {name:"2020 to 2023 - Roguelite Unity", videoLink: "https://www.youtube.com/embed/qJ683bBr1DA",team: "Solo project", techno: "Unity (C#)",
-image: "images/projects/roguelite_unity.png",
+image: ASSETS+"projects/roguelite_unity.png",
 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 } );
 PROJECTS.push( {name:"2019 - Bullet Hell", videoLink: "https://www.youtube.com/embed/tcU2ggFBnP0",team: "Team of 2", techno: "Android Studio (Java)",
-image: "images/projects/bullet_hell.png",
+image: ASSETS+"projects/bullet_hell.png",
 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 } );
 PROJECTS.push( {name:"2018 - Tactic Arena", videoLink: "https://www.youtube.com/embed/f0_FKtGCT9U",team: "Team of 2", techno: "C, SDL2",
-image: "images/projects/tactic.png",
+image: ASSETS+"projects/tactic.png",
 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 } );
 PROJECTS.push( {name:"2017 - Roguelike C", videoLink: "https://www.youtube.com/embed/1JO7lgYu3Yo",type: "Roguelike", team: "Solo project", techno: "C, SDL2",
-image: "images/projects/roguelike_C.png",
+image: ASSETS+"projects/roguelike_C.png",
 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
 } );
 
@@ -96,7 +99,7 @@ for(let i=1; i<200; i++){
 
 // Background
 
-const backgroundTexture = new THREE.TextureLoader().load('images/background.png');
+const backgroundTexture = new THREE.TextureLoader().load(ASSETS+'background.png');
 backgroundTexture.magFilter = THREE.NearestFilter;
 backgroundTexture.minFilter = THREE.LinearMipMapLinearFilter;
 backgroundTexture.center.set(0.8,0.8);
@@ -105,7 +108,7 @@ scene.background = backgroundTexture;
 
 // Avatar
 
-const avatarTexture = new THREE.TextureLoader().load('images/avatar.png');
+const avatarTexture = new THREE.TextureLoader().load(ASSETS+'avatar.png');
 avatarTexture.magFilter = THREE.NearestFilter;
 avatarTexture.minFilter = THREE.LinearMipMapLinearFilter;
 const avatarMaterial = new THREE.MeshBasicMaterial({ map: avatarTexture, transparent: true });
