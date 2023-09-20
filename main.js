@@ -1,27 +1,51 @@
 import './style.css';
 import * as THREE from 'three';
 
-
 const ASSETS = 'assets/';
+
 
 
 const PROJECTS = new Array();
 
-PROJECTS.push( {name:"2020 to 2023 - Roguelite Unity", videoLink: "https://www.youtube.com/embed/qJ683bBr1DA",team: "Solo project", techno: "Unity (C#)",
+PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: "https://www.youtube.com/embed/qJ683bBr1DA",
 image: ASSETS+"projects/roguelite_unity.png",
-description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+tags: ["👤 Solo project", "~2000h", "In progress", "Unity", "C#" , "HLSL"],
+missions: ["💻 Dev", "🎨 Assets", "🎵 Audio"],
+description: 
+  "Unlock different classes and perks to explore a proceduraly generated dungeon and escape alive."+
+  " Get stronger by finding powerfull items and upgrading them to influence your gameplay."+
+  " Recruit allies along the way, build relationships and prepare them to the fight."+
+  " Choose carefully the next room and how challenging but rewarding the trial will be."
 } );
-PROJECTS.push( {name:"2019 - Bullet Hell", videoLink: "https://www.youtube.com/embed/tcU2ggFBnP0",team: "Team of 2", techno: "Android Studio (Java)",
+
+PROJECTS.push( {name:"2019 - Bullet Hell", videoLink: "https://www.youtube.com/embed/tcU2ggFBnP0",
 image: ASSETS+"projects/bullet_hell.png",
-description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+tags: ["👥 Team of 2", "~50h", "Android Studio", "Java"],
+missions: ["💻 Dev", "🎵 Audio"],
+description: 
+  "Dodge increasingly complexe bullet patterns and defeat the bosses!"+
+  " Play through the 12 levels and try to beat your personnal highscores."
 } );
-PROJECTS.push( {name:"2018 - Tactic Arena", videoLink: "https://www.youtube.com/embed/f0_FKtGCT9U",team: "Team of 2", techno: "C, SDL2",
+
+PROJECTS.push( {name:"2018 - Tactic Arena Like", videoLink: "https://www.youtube.com/embed/f0_FKtGCT9U",
 image: ASSETS+"projects/tactic.png",
-description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+tags: ["👥 Team of 2", "~150h", "C", "SDL2", "No engine"],
+missions: ["💻 Dev", "🎨 Assets"],
+description: 
+  "Play in this turn-based game against the computer or other players to defeat their armies and be the one remaining."+
+  " Choose your units and start a war!"+
+  " Each unit can move, attack, heal and set their block side each turn."+
+  " Killing streaks provides bonuses to your units, dont let them escape!"+
+  " Use the landscape and build castles or towers to help your units take the upper hand."
 } );
-PROJECTS.push( {name:"2017 - Roguelike C", videoLink: "https://www.youtube.com/embed/1JO7lgYu3Yo",type: "Roguelike", team: "Solo project", techno: "C, SDL2",
+
+PROJECTS.push( {name:"2017 - Roguelike C", videoLink: "https://www.youtube.com/embed/1JO7lgYu3Yo",
 image: ASSETS+"projects/roguelike_C.png",
-description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+tags: ["👤 Solo project", "~150h", "C", "SDL2", "No engine"],
+missions: ["💻 Dev", "🎨 Assets"],
+description: 
+"Roam through a maze of rooms and corridors and kill as many enemies as possible in the shortest time."
++" The map is huge! dont get lost!"
 } );
 
 
@@ -39,17 +63,39 @@ function GetRandom(){
 
 const PROJECTS_HTML = PROJECTS.map( project => {
   let item = document.querySelector('#project-template').innerHTML;
+
   item = item.replace('{name}', project.name);
   item = item.replace('{videoLink}', project.videoLink);
   item = item.replace('{description}', project.description);
-  item = item.replace('{techno}', project.techno);
-  item = item.replace('{team}', project.team);
+
+  //TAGS
+  const tags_html = project.tags.map((tag) => {
+    let tags_template = document.querySelector('#tags-template').innerHTML;
+    tags_template = tags_template.replace('{tag}', tag);
+    return tags_template;
+  });
+  item = item.replace('{tags}', tags_html.join(''));
+
+  //MISSIONS
+  const missions_html = project.missions.map((mission) => {
+    let missions_template = document.querySelector('#missions-template').innerHTML;
+    missions_template = missions_template.replace('{mission}', mission);
+    return missions_template;
+  });
+  item = item.replace('{missions}', missions_html.join(''));
+
+
   return item;
 })
 document.querySelector('#list').innerHTML = PROJECTS_HTML.join('');
 
 
-// Setup
+
+
+
+// SETUP
+
+const clock = new THREE.Clock(true);
 
 const scene = new THREE.Scene();
 
@@ -204,13 +250,26 @@ moveCamera();
 
 function animate() {
   requestAnimationFrame(animate);
+  clock.getDelta();
+  
 
   STARS.forEach((starObj) => {
     starObj.direction.x += GetRandom() * 0.05;
     starObj.direction.y += GetRandom() * 0.05;
 
+    starObj.star.rotation.x += starObj.direction.x * 0.02;
+    starObj.star.rotation.y += starObj.direction.y * 0.02;
+
     starObj.star.position.x += starObj.direction.x * 0.01;
     starObj.star.position.y += starObj.direction.y * 0.01;
+  });
+
+
+  PROJECTS_ICONES.forEach((icone) => {
+    icone.icone.position.y += Math.sin(clock.elapsedTime * 2) * 0.003;
+
+    icone.icone.rotation.y +=  0.001;
+    icone.icone.rotation.x += Math.sin(clock.elapsedTime * 1) * 0.001;
   });
 
   // controls.update();

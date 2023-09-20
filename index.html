@@ -19,7 +19,7 @@
 
       <div class="about-me">
         <h3>Welcome to my portfolio!</h3>
-        <p>I have a master degree in AI and data mining but i have been a self-taught game programmer for many years.</p>
+        <p>I have a master's degree in AI and data mining but i have been a self-taught game programmer for many years.</p>
         <p><i>Please scroll down to look at some of my games!</i></p>
       </div>
 
@@ -50,11 +50,19 @@
     <p>{name}</p>
   </div>
   <div class="project-content">
+    <div class="project-tags" id="tags">{tags}</div>
     <div class="project-text">
-      <p>{team}</p>
-      <p>{techno}</p>
       <p>{description}</p>
     </div>
+    <div class="project-missions" id="missions">{missions}</div>
     <iframe class="project-video" src="{videoLink}" frameBorder="0" allowfullscreen></iframe>
   </div>
+</template>
+
+<template id="tags-template">
+  <div class="tag-bar">{tag}</div>
+</template>
+
+<template id="missions-template">
+  <div class="mission-bar">{mission}</div>
 </template>
