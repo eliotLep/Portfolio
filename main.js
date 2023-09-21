@@ -7,7 +7,7 @@ const ASSETS = 'assets/';
 
 const PROJECTS = new Array();
 
-PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: "https://www.youtube.com/embed/qJ683bBr1DA",
+PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: "https://www.youtube.com/embed/lTOeXSGKDvo",
 image: ASSETS+"projects/roguelite_unity.png",
 tags: ["👤 Solo project", "~2000h", "In progress", "Unity", "C#" , "HLSL"],
 missions: ["💻 Dev", "🎨 Assets", "🎵 Audio"],
@@ -47,6 +47,7 @@ description:
 "Roam through a maze of rooms and corridors and kill as many enemies as possible in the shortest time."
 +" The map is huge! dont get lost!"
 } );
+
 
 
 
@@ -111,6 +112,7 @@ camera.position.setZ(0);
 camera.position.setX(0);
 
 renderer.render(scene, camera);
+
 
 // Lights
 
@@ -186,16 +188,6 @@ PROJECTS.forEach( (project) => {
   PROJECTS_ICONES.push({icone: icone, material: material});
   count+=1;
 });
-
-
-PROJECTS.map( project => {
-  let item = document.querySelector('#project-template').innerHTML;
-  item = item.replace('{name}', project.name);
-  item = item.replace('{videoLink}', project.videoLink);
-  item = item.replace('{description}', project.description);
-  item = item.replace('{techno}', project.techno);
-  return item;
-})
 
 
 // Scroll Animation

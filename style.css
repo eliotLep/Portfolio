@@ -1,5 +1,10 @@
 @import url("https://use.typekit.net/jmk3xov.css");
 
+
+body {
+  margin: 0;
+}
+
 canvas {
   position: fixed;
   top: 0;
