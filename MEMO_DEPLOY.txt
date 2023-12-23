@@ -1,0 +1,9 @@
+1) run "npm run build"
+2) generated files are in "dist" folder
+3) move all item in the root "assets" folder inside the "assets" folder of "dist"
+
+3.5) npm run preview to test
+
+4)upload changes to https://cp1.awardspace.net/domain-manager/ (can take long to log in)
+    (upload the modified files + the html  file)
+5)see page at http://eliotlepoittevin-portfolio.atwebpages.com/  (probably need ctrl+f5, there is no or nearly no delay in the update)

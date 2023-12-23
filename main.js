@@ -8,7 +8,7 @@ const ASSETS = 'assets/';
 const PROJECTS = new Array();
 
 PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: "https://www.youtube.com/embed/lTOeXSGKDvo",
-image: ASSETS+"projects/roguelite_unity.png",
+image: ASSETS+"projects/rogueliteUnity.mp4",
 tags: ["👤 Solo project", "~2000h", "In progress", "Unity", "C#" , "HLSL"],
 missions: ["💻 Dev", "🎨 Assets", "🎵 Audio"],
 description: 
@@ -19,7 +19,7 @@ description:
 } );
 
 PROJECTS.push( {name:"2019 - Bullet Hell", videoLink: "https://www.youtube.com/embed/tcU2ggFBnP0",
-image: ASSETS+"projects/bullet_hell.png",
+image: ASSETS+"projects/bullethell.mp4",
 tags: ["👥 Team of 2", "~50h", "Android Studio", "Java"],
 missions: ["💻 Dev", "🎵 Audio"],
 description: 
@@ -28,7 +28,7 @@ description:
 } );
 
 PROJECTS.push( {name:"2018 - Tactic Arena Like", videoLink: "https://www.youtube.com/embed/f0_FKtGCT9U",
-image: ASSETS+"projects/tactic.png",
+image: ASSETS+"projects/tacticArena.mp4",
 tags: ["👥 Team of 2", "~150h", "C", "SDL2", "No engine"],
 missions: ["💻 Dev", "🎨 Assets"],
 description: 
@@ -40,12 +40,12 @@ description:
 } );
 
 PROJECTS.push( {name:"2017 - Roguelike C", videoLink: "https://www.youtube.com/embed/1JO7lgYu3Yo",
-image: ASSETS+"projects/roguelike_C.png",
+image: ASSETS+"projects/roguelikeC.mp4",
 tags: ["👤 Solo project", "~150h", "C", "SDL2", "No engine"],
 missions: ["💻 Dev", "🎨 Assets"],
 description: 
 "Roam through a maze of rooms and corridors and kill as many enemies as possible in the shortest time."
-+" The map is huge! dont get lost!"
++" The map is huge! Dont get lost!"
 } );
 
 
@@ -128,7 +128,7 @@ function addStar() {
   let size = THREE.MathUtils.randFloat(0.2 ,0.6);
   const geometry = new THREE.BoxGeometry(size, size, size);
 
-  let color = Math.random() < 0.5 ? 0xFF9CAB : 0x81322A;
+  let color = Math.random() < 0.5 ? 0x100000 : 0x200000;
   const material = new THREE.MeshStandardMaterial({ color: color });
 
   const star = new THREE.Mesh(geometry, material);
@@ -151,10 +151,7 @@ for(let i=1; i<200; i++){
 
 // Background
 
-const backgroundTexture = new THREE.TextureLoader().load(ASSETS+'background.png');
-backgroundTexture.magFilter = THREE.NearestFilter;
-backgroundTexture.minFilter = THREE.LinearMipMapLinearFilter;
-backgroundTexture.center.set(0.8,0.8);
+const backgroundTexture = new THREE.Color(0x0F0000);
 scene.background = backgroundTexture;
 
 
@@ -174,18 +171,40 @@ const PROJECTS_ICONES = Array();
 // ProjectIcones
 let count = 0;
 PROJECTS.forEach( (project) => {
-  let textureIcone = new THREE.TextureLoader().load(project.image);
-  textureIcone.magFilter = THREE.NearestFilter;
-  textureIcone.minFilter = THREE.LinearMipMapLinearFilter;
+  // Create video and play
+  let textureVid = document.createElement("video");
+  textureVid.muted = true;
+  textureVid.crossOrigin = 'anonymous';
+  textureVid.src = project.image;
+  textureVid.loop = true;
+  textureVid.play();
 
-  let material = new THREE.MeshBasicMaterial({ map: textureIcone, transparent: true });
-  let icone = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), material);
+  // Load video texture
+  let videoTexture = new THREE.VideoTexture(textureVid);
+  videoTexture.format = THREE.RGBAFormat;
+  //videoTexture.format = THREE.RGBFormat;
+  videoTexture.minFilter = THREE.NearestFilter;
+  videoTexture.maxFilter = THREE.NearestFilter;
+  videoTexture.generateMipmaps = false;
+
+  let textureSide = new THREE.TextureLoader().load(ASSETS+"side.png");
+  textureSide.magFilter = THREE.NearestFilter;
+  textureSide.minFilter = THREE.LinearMipMapLinearFilter;
+
+  let material = new THREE.MeshBasicMaterial({ map: videoTexture, transparent: true});
+  let blackMaterial = new THREE.MeshBasicMaterial({ map: textureSide, transparent: true});
+  let icone = new THREE.Mesh(new THREE.BoxGeometry(4, 2.25, 3), [blackMaterial, blackMaterial, blackMaterial, blackMaterial, material, blackMaterial]);
   scene.add(icone);
 
   icone.position.z = 5 + 8 * count ;
   icone.position.x = 3;
 
-  PROJECTS_ICONES.push({icone: icone, material: material});
+
+  icone.rotation.y = -0.2;
+
+  
+
+  PROJECTS_ICONES.push({icone: icone, materials: [material, blackMaterial]});
   count+=1;
 });
 
@@ -218,8 +237,11 @@ function moveCamera() {
   PROJECTS_ICONES.forEach((icone) => {
     icone.icone.position.z = (5 + 8 * count) + xScrollRatio * -45;
 
-    let opacityTreshold = (xScrollRatio - (startOpcacityProjects + stepOpacity * (count))) / stepOpacity;
-    icone.material.opacity = 1 - opacityTreshold;
+    let opacityTreshold = (xScrollRatio - (startOpcacityProjects + stepOpacity * (count+0.2))) / stepOpacity;
+    icone.materials.forEach((mat) => {
+      mat.opacity = 1 - opacityTreshold;
+    });
+    
     count++;
   });
 
@@ -231,7 +253,7 @@ function moveCamera() {
   //camera.position.z = t * -0.01;
 
 
-  backgroundTexture.repeat.set(1 - 0.3 * xScrollRatio, 1 - 0.3 * xScrollRatio);
+  //backgroundTexture.repeat.set(1 - 0.3 * xScrollRatio, 1 - 0.3 * xScrollRatio);
 
 }
 
@@ -260,7 +282,7 @@ function animate() {
   PROJECTS_ICONES.forEach((icone) => {
     icone.icone.position.y += Math.sin(clock.elapsedTime * 2) * 0.003;
 
-    icone.icone.rotation.y +=  0.001;
+    //icone.icone.rotation.y +=  0.001;
     icone.icone.rotation.x += Math.sin(clock.elapsedTime * 1) * 0.001;
   });
 

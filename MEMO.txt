@@ -1,3 +1,0 @@
-1) run "npm run build"
-2) generated files are in "dist" folder
-3) move all item in the root "assets" folder inside the "assets" folder of "dist"
