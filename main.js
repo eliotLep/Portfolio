@@ -7,15 +7,14 @@ const ASSETS = 'assets/';
 
 const PROJECTS = new Array();
 
-PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: "https://www.youtube.com/embed/lTOeXSGKDvo",
+PROJECTS.push( {name:"2020 to today - Roguelite Unity", videoLink: /*"https://www.youtube.com/embed/lTOeXSGKDvo"*/ "https://www.youtube.com/embed/-3pgEYbQ0O8",
 image: ASSETS+"projects/rogueliteUnity.mp4",
-tags: ["👤 Solo project", "~2000h", "In progress", "Unity", "C#" , "HLSL"],
+tags: ["👤 Solo project", "2000h+", "In progress", "Unity", "C#" , "HLSL"],
 missions: ["💻 Dev", "🎨 Assets", "🎵 Audio"],
 description: 
-  "Unlock different classes and perks to explore a proceduraly generated dungeon and escape alive."+
-  " Get stronger by finding powerfull items and upgrading them to influence your gameplay."+
-  " Recruit allies along the way, build relationships and prepare them to the fight."+
-  " Choose carefully the next room and how challenging but rewarding the trial will be."
+  "Explore the proceduraly generated map of the story mode to stop the proliferation of monsters or survive through nights with the arena mode."+
+  " Featuring hundreds of armors, lots of unique weapons, powefull relics and more to create the ultimate character and beat the game."+
+  " Monsters have increasingly stronger attack patterns when the difficulty raise, so be prepared!"
 } );
 
 PROJECTS.push( {name:"2019 - Bullet Hell", videoLink: "https://www.youtube.com/embed/tcU2ggFBnP0",
